@@ -1,0 +1,88 @@
+site_proj/
+|-- site_proj/
+|   |-- __pycache__/
+|   |-- protos/
+|   |   |-- __pycache__/
+|   |   |-- content_management_pb2_grpc.py
+|   |   |-- content_management_pb2.py
+|   |   |-- content_management.proto
+|   |-- grpc/
+|   |   |-- __init__.py
+|   |   |-- grpc_client.py
+|   |   |-- grpc_server.py
+|   |-- __init__.py
+|   |-- asgi.py
+|   |-- settings.py
+|   |-- urls.py
+|   |-- wsgi.py
+|-- user_management/
+|   |-- __pycache__/
+|   |-- migrations/
+|   |-- grpc/
+|   |   |-- __init__.py
+|   |   |-- grpc_client.py
+|   |   |-- grpc_services.py
+|   |-- static/
+|   |   |-- css/
+|   |   |   |-- styles.css
+|   |   |-- user_management/
+|   |   |   |-- profile.js
+|   |-- templates/
+|   |   |-- allauth/socialaccount/providers/google
+|   |   |   |-- login.html
+|   |   |-- user_management/
+|   |   |   |-- base.html
+|   |   |   |-- homepage.html
+|   |   |   |-- profile.html
+|   |   |-- login.html
+|   |-- __init__.py
+|   |-- admin.py
+|   |-- apps.py
+|   |-- forms.py
+|   |-- models.py
+|   |-- serializers.py
+|   |-- urls.py
+|   |-- tests.py
+|   |-- views.py
+|-- content_management/
+|   |-- __pycache__/
+|   |-- migrations/
+|   |   |-- __init__.py
+|   |-- templates/content_management
+|   |-- grpc/
+|   |   |-- grpc_client.py
+|   |-- __init__.py
+|   |-- admin.py
+|   |-- apps.py
+|   |-- models.py
+|   |-- tests.py
+|   |-- views.py
+├── analytics/
+|   |-- __pycache__/
+|   |-- protos/
+|   |   |-- analytics_service.proto
+|   |-- grpc/
+|   |   |-- __init__.py
+|   |   |-- analytics_grpc_client.py
+|   |   |-- analytics_grpc_services.py
+│   ├── grpc_generated/
+|   |   |-- __pycache__/
+│   │   ├── __init__.py
+│   │   ├── analytics_service_pb2.py
+│   │   └── analytics_service_pb2_grpc.py
+|   |-- templates/analytics
+│   │   ├── dashboard.html
+│   │   ├── error.html
+│   ├── migrations/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── views.py
+│   ├── consumers.py
+│   ├── routing.py
+│   ├── urls.py
+│   ├── data_processing.py
+|-- manage.py
+|-- requirements.txt

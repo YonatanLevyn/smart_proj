@@ -1,0 +1,8 @@
+{% extends 'user_management/base.html' %}
+
+{% block content %}
+    <h1>Login with Google</h1>
+    <p>You are about to sign in using a third party account from Google.</p>
+    <a href="{% url 'socialaccount_connections' %}">Continue</a>
+{% endblock %}
+

@@ -1,0 +1,51 @@
+{% extends 'user_management/base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'user_management/profile.css' %}">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {% if user.profile_cover %}
+                <img src="{{ user.profile_cover.url }}" alt="Cover Photo" class="img-fluid">
+            {% else %}
+                <div class="bg-secondary" style="height: 200px;"></div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            {% if user.profile_photo %}
+                <img src="{{ user.profile_photo.url }}" alt="Profile Photo" class="img-thumbnail profile-photo mb-2">
+            {% else %}
+                <div class="bg-secondary" style="width: 200px; height: 200px;"></div>
+            {% endif %}
+            {% if user == request.user %}
+                <a href="{% url 'user_management:update_profile_photo' pk=user.pk %}" class="btn btn-primary d-block mb-2">Edit Profile Photo</a>
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <h2>{{ user.username }}</h2>
+            <h2>Introduction</h2>
+            <p>{{ user.introduction }}</p>
+            {% if user == request.user %}
+                <a href="{% url 'user_management:update_introduction' pk=user.pk %}" class="btn btn-primary mb-2">Edit Introduction</a>
+            {% endif %}
+            <h2>Contact Information</h2>
+            <p><a href="mailto:{{ user.email }}" target="_blank">Gmail</a></p>
+            <!-- Additional sections can be added here for education, work experience, skills, etc. -->
+        </div>
+    </div>
+
+    {% if user == request.user %}
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <a href="{% url 'user_management:update_cover_photo' pk=user.pk %}" class="btn btn-primary">Edit Cover Photo</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}
