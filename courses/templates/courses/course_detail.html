@@ -1,0 +1,29 @@
+{% extends 'user_management/base.html' %}
+
+{% block content %}
+    <h1>{{ object.title }}</h1>
+    <p>{{ object.description }}</p>
+
+    <h2>Lessons:</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Updated At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lesson in lessons %}
+                <tr>
+                    <td><a href="{% url 'courses:lesson_detail' course_pk=object.pk pk=lesson.pk %}">{{ lesson.title }}</a></td>
+                    <td>{{ lesson.updated_at }}</td>
+                    <td>
+                        <a href="{% url 'courses:lesson_delete' lesson.course.pk lesson.pk %}">Delete Lesson</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'courses:lesson_create' course_pk=object.pk %}" class="btn btn-primary">Add Lesson</a>
+{% endblock %}

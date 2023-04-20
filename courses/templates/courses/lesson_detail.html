@@ -1,0 +1,11 @@
+{% extends 'user_management/base.html' %}
+
+{% block content %}
+    <h1>{{ object.title }}</h1>
+    <p>{{ object.description }}</p>
+    {% if video_info %}
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ object.youtube_video_id }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    {% else %}
+        <p>Video not found.</p>
+    {% endif %}
+{% endblock %}

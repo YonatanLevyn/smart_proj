@@ -7,11 +7,18 @@ from .grpc.grpc_client import create_text_content, create_user
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .forms import IntroductionForm, ProfilePhotoForm, CoverPhotoForm
+from django.contrib.auth import logout
 
 
 # Login view
 def login(request):
     return render(request, 'login.html')
+
+
+# Custom logout view
+def custom_logout(request):
+    logout(request)
+    return render(request, 'user_management/logout.html')
 
 # User registration view using the DRF generic CreateAPIView
 class UserRegisterView(generics.CreateAPIView):
@@ -88,3 +95,4 @@ def update_cover_photo(request, pk):
         form = CoverPhotoForm(instance=user)
     context = {'form': form}
     return render(request, 'user_management/update_cover_photo.html', context)
+

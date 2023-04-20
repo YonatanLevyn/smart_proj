@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'user_management',
     'content_management',
     'analytics',
+    'courses',
     'channels',
 ]
 
@@ -198,6 +199,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "user_management/static"),
 ]
+
+MIME_TYPES = {
+    ".css": "text/css",
+}
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'user_management/media')
 

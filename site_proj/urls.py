@@ -21,13 +21,17 @@ from analytics.routing import websocket_urlpatterns as analytics_ws_urlpatterns
 from django.conf import settings
 from django.conf.urls.static import static
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('user_management/', include(('user_management.urls', 'user_management'), namespace='user_management')),
     path('analytics/', include('analytics.urls')),
+    path('courses/', include('courses.urls')),
     path('', homepage, name='homepage'),
 ]
+
 
 websocket_urlpatterns = analytics_ws_urlpatterns
 

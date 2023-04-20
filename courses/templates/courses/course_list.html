@@ -1,0 +1,28 @@
+{% extends 'user_management/base.html' %}
+
+{% block content %}
+    <h1>Courses</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Created By</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in object_list %}
+                <tr>
+                    <td><a href="{% url 'courses:course_detail' course.pk %}">{{ course.title }}</a></td>
+                    <td>{{ course.created_by.username }}</td>
+                    <td>{{ course.created_at }}</td>
+                    <td>
+                        <a href="{% url 'courses:course_delete' course.pk %}">Delete Course</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'courses:course_create' %}" class="btn btn-primary">Add Course</a>
+    
+{% endblock %}
