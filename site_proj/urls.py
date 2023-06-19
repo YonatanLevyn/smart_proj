@@ -16,25 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from user_management.views import homepage  
-from analytics.routing import websocket_urlpatterns as analytics_ws_urlpatterns
-from django.conf import settings
-from django.conf.urls.static import static
-
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
-    path('user_management/', include(('user_management.urls', 'user_management'), namespace='user_management')),
-    path('analytics/', include('analytics.urls')),
-    path('courses/', include('courses.urls')),
-    path('', homepage, name='homepage'),
+    path('api/user/', include(('user_management.urls', 'user_management'), namespace='user_management')),
+    path('api/courses/', include('courses.urls')),
 ]
-
-
-websocket_urlpatterns = analytics_ws_urlpatterns
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

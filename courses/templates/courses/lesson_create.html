@@ -7,6 +7,7 @@
                 <h1 class="my-4">Create a lesson</h1>
                 <form method="post">
                     {% csrf_token %}
+               
                     <div class="form-group">
                         <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
                         <input type="text" class="form-control" id="{{ form.title.id_for_label }}" name="{{ form.title.html_name }}" value="{{ form.title.value|default:'' }}" required>
@@ -15,10 +16,22 @@
                         <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
                         <textarea class="form-control" id="{{ form.description.id_for_label }}" name="{{ form.description.html_name }}" rows="3">{{ form.description.value|default:'' }}</textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="{{ form.youtube_video_id.id_for_label }}">{{ form.youtube_video_id.label }}</label>
+                        <input type="text" class="form-control {% if form.youtube_video_id.errors %}is-invalid{% endif %}" id="{{ form.youtube_video_id.id_for_label }}" name="{{ form.youtube_video_id.html_name }}" value="{{ form.youtube_video_id.value|default:'' }}" required>
+                        {% for error in form.youtube_video_id.errors %}
+                            <div class="invalid-feedback">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    
                     <button type="submit" class="btn btn-primary">Create</button>
                 </form>
             </div>
         </div>
     </div>
 {% endblock %}
+
 

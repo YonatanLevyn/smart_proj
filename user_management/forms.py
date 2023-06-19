@@ -13,12 +13,3 @@ class IntroductionForm(forms.ModelForm):
         model = CustomUser
         fields = ['introduction']
         
-class ProfilePhotoForm(forms.ModelForm):
-    class Meta:
-        model = CustomUser
-        fields = ['profile_photo']
-
-class CoverPhotoForm(forms.ModelForm):
-    class Meta:
-        model = CustomUser
-        fields = ['profile_cover']

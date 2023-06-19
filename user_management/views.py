@@ -1,98 +1,62 @@
-from rest_framework import generics
-from rest_framework.permissions import AllowAny
-from .models import CustomUser
-from .serializers import UserSerializer, UserRegisterSerializer
-from django.shortcuts import render, redirect
-from .grpc.grpc_client import create_text_content, create_user
-from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
-from .forms import IntroductionForm, ProfilePhotoForm, CoverPhotoForm
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth import logout
+from rest_framework import status
+from .models import CustomUser
+from .serializers import UserSerializer
+from rest_framework.viewsets import ModelViewSet
+from .forms import IntroductionForm
 
-
-# Login view
-def login(request):
-    return render(request, 'login.html')
-
-
-# Custom logout view
-def custom_logout(request):
-    logout(request)
-    return render(request, 'user_management/logout.html')
-
-# User registration view using the DRF generic CreateAPIView
-class UserRegisterView(generics.CreateAPIView):
+# UserViewSet
+class UserViewSet(ModelViewSet):
     queryset = CustomUser.objects.all()
-    serializer_class = UserRegisterSerializer
-    permission_classes = [AllowAny]
+    serializer_class = UserSerializer
 
-    # Overriding the create method to use gRPC for user registration
-    def create(self, request, *args, **kwargs):
-        username = request.data.get('username')
-        email = request.data.get('email')
-        password = request.data.get('password')
+    # Overriding the get_permissions method to allow unauthenticated users to register
+    def get_permissions(self):
+        if self.action in ['update', 'partial_update', 'destroy']:
+            permission_classes = [IsAuthenticated]
+        else:
+            permission_classes = [AllowAny]
+        return [permission() for permission in permission_classes]
 
-        response = create_user(username, email, password)
-        return JsonResponse({"status": "success", "user_id": response.user_id, "message": response.message})
 
-# Homepage view
-def homepage(request):
-    return render(request, 'user_management/homepage.html')
+# Logout View
+class LogoutView(APIView):
+    def get(self, request, format=None):
+        logout(request)
+        return Response(status=status.HTTP_200_OK)
 
 
 # Profile view with introduction update functionality
-@login_required
-def profile_view(request, pk):
-    user = CustomUser.objects.get(pk=pk)
-    updated = False
-    if request.method == "POST":
-        form = IntroductionForm(request.POST, instance=user)
+class ProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk, format=None):
+        user = CustomUser.objects.get(pk=pk)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+    def post(self, request, pk, format=None):
+        user = CustomUser.objects.get(pk=pk)
+        form = IntroductionForm(request.data, instance=user)
         if form.is_valid():
             form.save()
-            updated = True
-    else:
-        form = IntroductionForm(instance=user)
-    context = {'user': user, 'form': form, 'updated': updated}
-    return render(request, 'user_management/profile.html', context)
+            serializer = UserSerializer(user)
+            return Response(serializer.data)
+        return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Introduction update view
-@login_required
-def update_introduction(request, pk):
-    user = CustomUser.objects.get(pk=pk)
-    if request.method == "POST":
-        form = IntroductionForm(request.POST, instance=user)
+class UpdateIntroductionView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk, format=None):
+        user = CustomUser.objects.get(pk=pk)
+        form = IntroductionForm(request.data, instance=user)
         if form.is_valid():
             form.save()
-            return redirect('user_management:profile', pk=pk)
-    else:
-        form = IntroductionForm(instance=user)
-    context = {'form': form}
-    return render(request, 'user_management/update_introduction.html', context)
-
-@login_required
-def update_profile_photo(request, pk):
-    user = CustomUser.objects.get(pk=pk)
-    if request.method == "POST":
-        form = ProfilePhotoForm(request.POST, request.FILES, instance=user)
-        if form.is_valid():
-            form.save()
-            return redirect('user_management:profile', pk=pk)
-    else:
-        form = ProfilePhotoForm(instance=user)
-    context = {'form': form}
-    return render(request, 'user_management/update_profile_photo.html', context)
-
-@login_required
-def update_cover_photo(request, pk):
-    user = CustomUser.objects.get(pk=pk)
-    if request.method == "POST":
-        form = CoverPhotoForm(request.POST, request.FILES, instance=user)
-        if form.is_valid():
-            form.save()
-            return redirect('user_management:profile', pk=pk)
-    else:
-        form = CoverPhotoForm(instance=user)
-    context = {'form': form}
-    return render(request, 'user_management/update_cover_photo.html', context)
-
+            serializer = UserSerializer(user)
+            return Response(serializer.data)
+        return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)

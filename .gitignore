@@ -7,3 +7,4 @@ __pycache__/
 *.pot
 *.DS_Store
 .env
+venv/

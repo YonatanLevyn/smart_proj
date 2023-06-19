@@ -1,14 +1,13 @@
-from django.urls import path
-from .views import UserRegisterView
-from . import views
+from django.urls import path, include
+from .views import UserViewSet, LogoutView, ProfileView, UpdateIntroductionView
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'users', UserViewSet, basename='user')
 
 urlpatterns = [
-    path('register/', UserRegisterView.as_view(), name='register'),
-    path('profile/<int:pk>/', views.profile_view, name='profile'),  
-    path('login/', views.login, name='login'),
-    path('logout/', views.custom_logout, name='logout'),
-    path('profile/', views.profile_view, name='profile_view'),
-    path('profile/<int:pk>/update_introduction/', views.update_introduction, name='update_introduction'),
-    path('update_profile_photo/<int:pk>/', views.update_profile_photo, name='update_profile_photo'),
-    path('update_cover_photo/<int:pk>/', views.update_cover_photo, name='update_cover_photo'),
+    path('profile/<int:pk>/', ProfileView.as_view(), name='profile'),  
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('profile/<int:pk>/update_introduction/', UpdateIntroductionView.as_view(), name='update_introduction'),
+    path('api/', include(router.urls)), 
 ]

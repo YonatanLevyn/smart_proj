@@ -1,109 +1,50 @@
-site_proj/
-|-- site_proj/
-|   |-- __pycache__/
-|   |-- protos/
+SMART/
+|-- server-side/
+|   |-- site_proj/
+|   |   |-- __init__.py
+|   |   |-- asgi.py
+|   |   |-- settings.py
+|   |   |-- urls.py
+|   |   |-- wsgi.py
+|   |-- user_management/
 |   |   |-- __pycache__/
-|   |   |-- content_management_pb2_grpc.py
-|   |   |-- content_management_pb2.py
-|   |   |-- content_management.proto
-|   |-- grpc/
+|   |   |-- migrations/
 |   |   |-- __init__.py
-|   |   |-- grpc_client.py
-|   |   |-- grpc_server.py
-|   |-- __init__.py
-|   |-- asgi.py
-|   |-- settings.py
-|   |-- urls.py
-|   |-- wsgi.py
-|-- user_management/
-|   |-- __pycache__/
-|   |-- migrations/
-|   |-- grpc/
+|   |   |-- admin.py
+|   |   |-- apps.py
+|   |   |-- forms.py
+|   |   |-- models.py
+|   |   |-- serializers.py
+|   |   |-- urls.py
+|   |   |-- tests.py
+|   |   |-- views.py
+|   |-- courses/
+|   |   |-- __pycache__/
+|   |   |-- migrations/
 |   |   |-- __init__.py
-|   |   |-- grpc_client.py
-|   |   |-- grpc_services.py
+|   |   |-- admin.py
+|   |   |-- apps.py
+|   |   |-- forms.py
+|   |   |-- serializers.py
+|   |   |-- models.py
+|   |   |-- tests.py
+|   |   |-- utils.py
+|   |   |-- urls.py
+|   |   |-- views.py
+|   |-- manage.py
+|   |-- requirements.txt
+|-- client-side/
 |   |-- static/
 |   |   |-- css/
 |   |   |   |-- styles.css
-|   |   |-- user_management/
-|   |   |   |-- profile.js
 |   |-- templates/
-|   |   |-- allauth/socialaccount/providers/google
-|   |   |   |-- login.html
 |   |   |-- user_management/
-|   |   |   |-- base.html
-|   |   |   |-- homepage.html
-|   |   |   |-- profile.html
-|   |   |-- login.html
-|   |-- __init__.py
-|   |-- admin.py
-|   |-- apps.py
-|   |-- forms.py
-|   |-- models.py
-|   |-- serializers.py
-|   |-- urls.py
-|   |-- tests.py
-|   |-- views.py
-|-- content_management/
-|   |-- __pycache__/
-|   |-- migrations/
-|   |   |-- __init__.py
-|   |-- templates/content_management
-|   |-- grpc/
-|   |   |-- grpc_client.py
-|   |-- __init__.py
-|   |-- admin.py
-|   |-- apps.py
-|   |-- models.py
-|   |-- tests.py
-|   |-- views.py
-|-- courses/
-|   |-- __pycache__/
-|   |-- migrations/
-|   |-- templates/
+|   |   |   |-- (all user_management templates)
 |   |   |-- courses/
-|   |   |   |-- course_delete.html
-|   |   |   |-- course_detail.html
-|   |   |   |-- course_create.html
-|   |   |   |-- course_list.html
-|   |   |   |-- lesson_detail.html
-|   |   |   |-- lesson_create.html
-|   |   |   |-- lesson_delete.html
-|   |-- __init__.py
-|   |-- admin.py
-|   |-- apps.py
-|   |-- forms.py
-|   |-- models.py
-|   |-- tests.py
-|   |-- utils.py
-|   |-- urls.py
-|   |-- views.py
-├── analytics/
-|   |-- __pycache__/
-|   |-- protos/
-|   |   |-- analytics_service.proto
-|   |-- grpc/
-|   |   |-- __init__.py
-|   |   |-- analytics_grpc_client.py
-|   |   |-- analytics_grpc_services.py
-│   ├── grpc_generated/
-|   |   |-- __pycache__/
-│   │   ├── __init__.py
-│   │   ├── analytics_service_pb2.py
-│   │   └── analytics_service_pb2_grpc.py
-|   |-- templates/analytics
-│   │   ├── dashboard.html
-│   │   ├── error.html
-│   ├── migrations/
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── apps.py
-│   ├── models.py
-│   ├── tests.py
-│   ├── views.py
-│   ├── consumers.py
-│   ├── routing.py
-│   ├── urls.py
-│   ├── data_processing.py
-|-- manage.py
-|-- requirements.txt
+|   |   |   |-- (all courses templates)
+|   |-- js/
+|   |   |-- user_management/
+|   |   |   |-- (JavaScript files corresponding to user_management templates)
+|   |   |-- courses/
+|   |   |   |-- (JavaScript files corresponding to courses templates)
+
