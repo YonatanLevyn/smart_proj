@@ -2,7 +2,6 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 
-
 class Course(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -15,6 +14,7 @@ class Course(models.Model):
     
     ## get_absolute_url() method to return the URL of the created object
     def get_absolute_url(self):
+        ## path('course/<int:pk>/', views.course_detail, name='course_detail'),
         return reverse('courses:course_detail', args=[str(self.id)])
 
 
@@ -30,6 +30,8 @@ class Lesson(models.Model):
         return self.title
 
     def get_absolute_url(self):
+        ## we use the reverse() function to return the URL of the created object
+        ## that url is the lesson_detail url, and we pass the pk of the created object
         return reverse('lesson_detail', args=[str(self.pk)])
 
 

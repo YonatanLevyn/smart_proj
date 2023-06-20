@@ -3,7 +3,7 @@ from .views import UserViewSet, LogoutView, ProfileView, UpdateIntroductionView
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register(r'users', UserViewSet, basename='user')
+router.register(r'user', UserViewSet, basename='user')
 
 urlpatterns = [
     path('profile/<int:pk>/', ProfileView.as_view(), name='profile'),  
